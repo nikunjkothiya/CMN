@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Component/Login/Login";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import Notfound from "./Component/Notfound/Notfound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -7,11 +8,17 @@ import useToken from './Component/useToken';
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
+
 function App() {
   const { token, setToken } = useToken();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [viewOtpForm, setViewOtpForm] = useState(false);
   const [user, setUser] = useState(false);
+
+  const otpFormReset = () => {
+    setViewOtpForm(false);
+    setIsSubmitting(false);
+  };
 
   const firebaseConfig = {
     apiKey: "AIzaSyDjkljcSEMIo606FH54T6Ru1bWCqMpzmgY",
@@ -51,9 +58,10 @@ function App() {
   });
 
   const loginSubmit = (mobile) => {
-   // e.preventDefault();
-  console.log(mobile);
-   // let phone_number = "+91" + e.target.mobile.value;
+    // e.preventDefault();
+    console.log(mobile);
+    setIsSubmitting(true);
+    // let phone_number = "+91" + e.target.mobile.value;
     let phone_number = mobile;
     const appVerifier = window.recaptchaVerifier;
 
@@ -63,6 +71,7 @@ function App() {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
         console.log("otp sent");
+
         setViewOtpForm(true);
         window.confirmationResult = confirmationResult;
         // ...
@@ -74,16 +83,14 @@ function App() {
       });
   };
 
-  const otpSubmit = (setOtp) => {
+  const otpSubmit = (getOtp) => {
     //e.preventDefault();
-    console.log(setOtp);
-    let opt_number = setOtp;
+    var opt_number = getOtp;
 
     window.confirmationResult
       .confirm(opt_number)
       .then((confirmationResult) => {
         console.log(confirmationResult);
-        console.log("success");
         window.open("/new", "_self");
       })
       .catch((error) => {
@@ -109,17 +116,16 @@ function App() {
   //   return <Login setToken={setToken} />
   // }
   return (
-   
-      <BrowserRouter>
-       <div id="recaptcha-container"></div>
-        <Routes>
-          <Route path="/" element={<Login setToken={setToken} loginSubmit={loginSubmit}
-            otpSubmit={otpSubmit}
-            viewOtpForm={viewOtpForm} />} />
-          <Route path="/new" element={<Notfound signOut={signOut} user={user}/>}/>
-        </Routes>
-      </BrowserRouter>
-  
+
+    <BrowserRouter>
+      <div id="recaptcha-container"></div>
+      <Routes>
+        <Route path="/" element={<Login setToken={setToken} loginSubmit={loginSubmit}
+          otpSubmit={otpSubmit} isSubmitting={isSubmitting} viewOtpForm={viewOtpForm} otpFormReset={otpFormReset} />} />
+        <Route path="/new" element={<Notfound signOut={signOut} user={user} />} />
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 

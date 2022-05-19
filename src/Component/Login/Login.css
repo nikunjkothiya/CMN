@@ -245,3 +245,11 @@ input[type="number"] {
   font-weight: bold;
 }
 
+.editMobile{
+  color: #003bac;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-weight: bolder !important;
+  cursor: pointer;
+}

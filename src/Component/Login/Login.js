@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Login.css";
 import loginImg from "../../images/login.png";
 import logo from "../../images/logo.png";
@@ -22,24 +22,45 @@ const loginUser = async (credentials) => {
     .then(data => data.json());
 }
 
-const Login = ({ setToken, loginSubmit, otpSubmit, viewOtpForm }) => {
+const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, otpFormReset }) => {
   const navigate = useNavigate();
   const initialValues = { mobile: "", countrycode: "" };
   const [formValues, setFormValues] = useState(initialValues);
+  const [counter, setCounter] = useState(30);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [otp, setOtp] = useState('');
 
+  const id = useRef(null);
+  const clear = () => {
+    window.clearInterval(id.current);
+  };
+
   const handleChange = (value, country, event) => {
     //const { name, value } = e.target;
     setFormValues({ ...formValues, ['mobile']: value, ['countrycode']: country.dialCode });
-    console.log(formValues);
+  };
+
+  const verifyOTP = (e) => {
+    e.preventDefault();
+    if (otp != "" && otp != null && otp.length == 6) {
+      otpSubmit(otp);
+    }
+  };
+
+  const changeMobile = () => {
+    setFormValues({ ...formValues, ['mobile']: "", ['countrycode']: "" });
+    setFormErrors({});
+    setIsSubmit(false);
+    setOtp('');
+    otpFormReset();
+    setCounter(30);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0) {
+    if (formValues.mobile != "" && formValues.mobile != null) {
       setIsSubmit(true);
       loginSubmit("+" + formValues.mobile);
       // const response = await loginUser(formValues);
@@ -67,6 +88,19 @@ const Login = ({ setToken, loginSubmit, otpSubmit, viewOtpForm }) => {
     }
     return errors;
   };
+
+  useEffect(() => {
+    id.current = window.setInterval(() => {
+      setCounter((time) => time - 1);
+    }, 1000);
+    return () => clear();
+  }, []);
+
+  useEffect(() => {
+    if (counter === 0) {
+      clear();
+    }
+  }, [counter]);
 
   return (
     <>
@@ -104,14 +138,19 @@ const Login = ({ setToken, loginSubmit, otpSubmit, viewOtpForm }) => {
                         }}
                       />
                     </div>
+
                     <div className="submitbtn">
-                      <button type="submit" style={{ outline: 'none', border: 'none', background: 'none' }}>
-                        <div className="next">
-                          <div className="images">
-                            <img src={Shape} alt="flag" />
+                      {isSubmitting ? (
+                        <div className="spinner-border text-light"></div>
+                      ) : (
+                        <button type="submit" style={{ outline: 'none', border: 'none', background: 'none' }}>
+                          <div className="next">
+                            <div className="images">
+                              <img src={Shape} alt="flag" />
+                            </div>
                           </div>
-                        </div>
-                      </button>
+                        </button>
+                      )}
                     </div>
                   </div>
                   <div className="mobile">
@@ -128,39 +167,38 @@ const Login = ({ setToken, loginSubmit, otpSubmit, viewOtpForm }) => {
                   </div>
                   <p>Enter 6 digit Verification code</p>
                 </div>
-                <form onSubmit={otpSubmit}>
+                <form onSubmit={verifyOTP}>
+                  <div className="verification_code">
+                    <OtpInput className="code"
+                      value={otp}
+                      onChange={setOtp}
+                      numInputs={6}
+                      autoFocus
+                      disabled={false} secure
+                    />
+                  </div>
 
-                <div className="verification_code">
-                  <OtpInput className="code"
-                    value={otp}
-                    onChange={setOtp}
-                    numInputs={6}
-                    autoFocus
-                    disabled={false} secure
-                  />
-                </div>
+                  <div className="resend_code">
+                    <p>Resend code in 00:{counter}</p>
+                  </div>
 
-                <div className="resend_code">
-                  <p>Resend code in 00:20</p>
-                </div>
-
-                <div className="wrong_code">
-                  <p>
-                    Wrong number ?<span> Edit</span>
-                  </p>
-                </div>
-                <div className="next_btn">
-                  <button type="submit" className="btn btn-primary">
-                    Next
-                  </button>
-                </div>
-              </form>
+                  <div className="wrong_code">
+                    <p>
+                      Wrong number ?<span className="editMobile" onClick={changeMobile}>Edit</span>
+                    </p>
+                  </div>
+                  <div className="next_btn">
+                    <button type="submit" className="btn btn-primary">
+                      Next
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
 
+          </div>
         </div>
-      </div>
-    </div>
+      </div >
     </>
   );
 };
