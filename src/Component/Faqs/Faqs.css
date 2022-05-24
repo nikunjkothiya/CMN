@@ -1,0 +1,73 @@
+.faqs {
+  background-color: #f9f8fd;
+  padding: 100px 0;
+}
+.faqs .faqs-title p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  color: #000000;
+  display: inline-block;
+  position: relative;
+}
+.faqs .faqs-title p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 56px;
+  width: 100%;
+  border-bottom: 5px solid #d00000;
+  border-radius: 4px;
+}
+
+/* Accordian  */
+
+.faqs .accordian {
+  margin-top: 20px;
+}
+.faqs .accordian .accordian-faqs {
+  background: #ffffff;
+  border: 2px solid #c9c9c9;
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+}
+
+/* faqs-header */
+
+.faqs .accordian .accordian-faqs .wrapperFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.faqs .accordian .accordian-faqs .wrapperFlex .faqs-heading p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: capitalize;
+  color: #000000;
+}
+.faqs .accordian .accordian-faqs .wrapperFlex .vertical p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 35px;
+  color: #000000;
+  line-height: 0;
+}
+
+/* faqs-content */
+
+.faqs .accordian .accordian-faqs .faqs-content p {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.faqs .accordian .accordian-faqs .faqs-content .active {
+  display: block;
+}
+
+.faqs .accordian .accordian-faqs .faqs-content .inactive {
+  display: none;
+}

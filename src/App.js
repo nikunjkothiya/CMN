@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Component/Login/Login";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Notfound from "./Component/Notfound/Notfound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import useToken from './Component/useToken';
+import useToken from "./Component/useToken";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-
+import Rewards from "./Component/Rewards/Rewards";
+import Profile from "./Component/Profile/Profile";
 
 function App() {
   const { token, setToken } = useToken();
@@ -26,7 +27,7 @@ function App() {
     projectId: "cmnreact-eb742",
     storageBucket: "cmnreact-eb742.appspot.com",
     messagingSenderId: "202979541848",
-    appId: "1:202979541848:web:88a78d31cd6fc595141b2d"
+    appId: "1:202979541848:web:88a78d31cd6fc595141b2d",
   };
 
   useEffect(() => {
@@ -116,16 +117,30 @@ function App() {
   //   return <Login setToken={setToken} />
   // }
   return (
-
     <BrowserRouter>
       <div id="recaptcha-container"></div>
       <Routes>
-        <Route path="/" element={<Login setToken={setToken} loginSubmit={loginSubmit}
-          otpSubmit={otpSubmit} isSubmitting={isSubmitting} viewOtpForm={viewOtpForm} otpFormReset={otpFormReset} />} />
-        <Route path="/new" element={<Notfound signOut={signOut} user={user} />} />
+        <Route
+          path="/"
+          element={
+            <Login
+              setToken={setToken}
+              loginSubmit={loginSubmit}
+              otpSubmit={otpSubmit}
+              isSubmitting={isSubmitting}
+              viewOtpForm={viewOtpForm}
+              otpFormReset={otpFormReset}
+            />
+          }
+        />
+        <Route
+          path="/new"
+          element={<Notfound signOut={signOut} user={user} />}
+        />
+        <Route path="/rewards" element={<Rewards />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
-
   );
 }
 

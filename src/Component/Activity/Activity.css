@@ -1,0 +1,64 @@
+.activity-section {
+  margin: 120px 0;
+}
+.activity-section .activity-title p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  color: #000000;
+  display: inline-block;
+  position: relative;
+}
+.activity-section .activity-title p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 55px;
+  width: 50%;
+  border-bottom: 5px solid #d00000;
+  border-radius: 4px;
+}
+
+.activity-section .main-activity :last-child {
+  border-bottom: none;
+}
+.activity-section .activity-content {
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
+  margin-top: 30px;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 30px;
+}
+.activity-section .activity-content .liked p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0;
+}
+.activity-section .activity-content .heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.activity-section .activity-content .heading .title p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 38px;
+  color: #000000;
+  margin: 0;
+}
+.activity-section .activity-content .heading .points p {
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 40px;
+  color: #000000;
+  margin: 0;
+}
+.activity-section .activity-content .time span {
+  font-size: 13px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.45);
+  margin-right: 20px;
+}
