@@ -37,8 +37,10 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
   };
 
   const handleChange = (value, country, event) => {
-    //const { name, value } = e.target;
-    setFormValues({ ...formValues, ['mobile']: value, ['countrycode']: country.dialCode });
+    // console.log(value, country, event);
+    if (value != country.dialCode) {
+      setFormValues({ ...formValues, ['mobile']: value, ['countrycode']: country.dialCode });
+    }
   };
 
   const verifyOTP = (e) => {
@@ -48,19 +50,24 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
     }
   };
 
+  const resendOtp = (e) => {
+    //handleSubmit(e);
+  };
+
   const changeMobile = () => {
+    setCounter(30);
     setFormValues({ ...formValues, ['mobile']: "", ['countrycode']: "" });
     setFormErrors({});
     setIsSubmit(false);
     setOtp('');
     otpFormReset();
-    setCounter(30);
+    console.log(counter);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (formValues.mobile != "" && formValues.mobile != null) {
+    if (formValues.mobile !== "" && formValues.mobile !== null) {
       setIsSubmit(true);
       loginSubmit("+" + formValues.mobile);
       // const response = await loginUser(formValues);
@@ -90,16 +97,9 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
   };
 
   useEffect(() => {
-    id.current = window.setInterval(() => {
-      setCounter((time) => time - 1);
-    }, 1000);
-    return () => clear();
-  }, []);
-
-  useEffect(() => {
-    if (counter === 0) {
-      clear();
-    }
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
   }, [counter]);
 
   return (
@@ -179,7 +179,7 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                   </div>
 
                   <div className="resend_code">
-                    <p>Resend code in 00:{counter}</p>
+                   <p>verify code in 00:{counter}</p>
                   </div>
 
                   <div className="wrong_code">
@@ -188,9 +188,12 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                     </p>
                   </div>
                   <div className="next_btn">
+                  {(counter !== 0) ? (
                     <button type="submit" className="btn btn-primary">
                       Next
-                    </button>
+                    </button> ) : (
+                    <button onClick={resendOtp} className="btn btn-danger">Resend</button>
+                    )}
                   </div>
                 </form>
               </div>
