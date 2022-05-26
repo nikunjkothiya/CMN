@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Login from "./Component/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Notfound from "./Component/Notfound/Notfound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import useToken from "./Component/useToken";
 import firebase from "firebase/compat/app";
@@ -59,11 +60,12 @@ function App() {
 
   // Phone number verify and send otp
   const loginSubmit = (mobile) => {
+    console.log('gotofirebase', mobile);
     setIsSubmitting(true);
-
-    var phone_number = mobile;
-    const appVerifier = window.recaptchaVerifier;
     console.log('isSubmitting', isSubmitting);
+    let phone_number = mobile;
+    const appVerifier = window.recaptchaVerifier;
+    console.log(appVerifier);
     auth
       .signInWithPhoneNumber(phone_number, appVerifier)
       .then((confirmationResult) => {
