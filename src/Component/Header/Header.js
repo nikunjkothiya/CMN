@@ -15,19 +15,19 @@ const Header = () => {
           <div className="menu">
             <NavLink
               to="/rewards"
-              // style={({ isActive }) => ({
-              //   color: isActive ? "#0032AB" : "#00000",
-              //   // borderBottom: isActive ? "1px solid blck" : "",
-              // })}
+            // style={({ isActive }) => ({
+            //   color: isActive ? "#0032AB" : "#00000",
+            //   // borderBottom: isActive ? "1px solid blck" : "",
+            // })}
             >
               Rewards
             </NavLink>
             <NavLink
               to="/profile"
-              // style={({ isActive }) => ({
-              //   color: isActive ? "#0032AB" : "#00000",
-              //   // borderBottom: isActive ? "1px solid black" : "",
-              // })}
+            // style={({ isActive }) => ({
+            //   color: isActive ? "#0032AB" : "#00000",
+            //   // borderBottom: isActive ? "1px solid black" : "",
+            // })}
             >
               Profile
             </NavLink>

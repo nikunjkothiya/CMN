@@ -63,7 +63,6 @@ function App() {
 
     var phone_number = mobile;
     const appVerifier = window.recaptchaVerifier;
-    console.log('isSubmitting', isSubmitting);
     auth
       .signInWithPhoneNumber(phone_number, appVerifier)
       .then((confirmationResult) => {

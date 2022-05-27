@@ -76,7 +76,6 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
       //   navigate('/otp');
       // }
     }
-
   };
 
   const validate = (values) => {
