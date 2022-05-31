@@ -30,21 +30,21 @@ const Profile = () => {
 
         <div className="container">
           <div className="row">
-            <div className="col-md-11 col-12 mx-auto">
+            <div className="col-md-12  mx-auto">
               <div className="profile-contant">
                 {/* <div className="wrapper-flex"> */}
                 <div className="row">
-                  <div className="col-md-6 ">
+                  <div className="col-md-12 col-lg-6 ">
                     <div className="image ">
                       <img src={profilebg} alt="bg" />
                     </div>
                   </div>
                   {/* line */}
-                  <div className="col-md-1">
+                  <div className="col-md-12 col-lg-1">
                     <div className="line"></div>
                   </div>
                   {/* user-details */}
-                  <div className="col-md-5">
+                  <div className="col-md-12 col-lg-5">
                     <div className="profile-details">
                       <div className="profile-img">
                         <div className="user-image">
@@ -94,12 +94,16 @@ const Profile = () => {
           </div>
 
           <div className="social-link">
-            <p>Follow Us</p>
-            <img src={fb} alt="fb" />
-            <img src={insta} alt="insta" />
-            <img src={tele} alt="tele" />
-            <img src={twitter} alt="twitter" />
-            <img src={hub} alt="hub" />
+            <div>
+              <p>Follow Us</p>
+            </div>
+            <div className="social">
+              <img src={fb} alt="fb" />
+              <img src={insta} alt="insta" />
+              <img src={tele} alt="tele" />
+              <img src={twitter} alt="twitter" />
+              <img src={hub} alt="hub" />
+            </div>
           </div>
         </div>
       </div>

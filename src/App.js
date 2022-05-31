@@ -130,8 +130,14 @@ function App() {
             />
           }
         />
-        <Route path="/rewards" element={<Rewards signOut={signOut} user={user} />} />
-        <Route path="/profile" element={<Profile signOut={signOut} user={user} />} />
+        <Route
+          path="/rewards"
+          element={<Rewards signOut={signOut} user={user} />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile signOut={signOut} user={user} />}
+        />
         {/* <Route path="/rewards" element={<Rewards />} />
         <Route path="/profile" element={<Profile />} /> */}
       </Routes>

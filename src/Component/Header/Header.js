@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import logo from "../../images/logo.png";
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <div className="header">
@@ -12,26 +13,16 @@ const Header = () => {
             <img src={logo} alt="logo" />
           </div>
 
-          <div className="menu">
-            <NavLink
-              to="/rewards"
-            // style={({ isActive }) => ({
-            //   color: isActive ? "#0032AB" : "#00000",
-            //   // borderBottom: isActive ? "1px solid blck" : "",
-            // })}
-            >
-              Rewards
-            </NavLink>
-            <NavLink
-              to="/profile"
-            // style={({ isActive }) => ({
-            //   color: isActive ? "#0032AB" : "#00000",
-            //   // borderBottom: isActive ? "1px solid black" : "",
-            // })}
-            >
-              Profile
-            </NavLink>
+          <div className={`menu ${isOpen && "open"}`}>
+            <NavLink to="/rewards">Rewards</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
             <button className="btn btn-primary">connect</button>
+          </div>
+          <div
+            className={`nav-toggle ${isOpen && "open"}`}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div className="bar"></div>
           </div>
         </div>
       </div>

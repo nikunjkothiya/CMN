@@ -45,14 +45,12 @@
 .activity-section .activity-content .heading .title p {
   font-weight: 500;
   font-size: 20px;
-  line-height: 38px;
   color: #000000;
   margin: 0;
 }
 .activity-section .activity-content .heading .points p {
   font-weight: 500;
-  font-size: 23px;
-  line-height: 40px;
+  font-size: 22px;
   color: #000000;
   margin: 0;
 }
@@ -61,4 +59,14 @@
   line-height: 20px;
   color: rgba(0, 0, 0, 0.45);
   margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .activity-section .activity-content .liked p {
+    font-size: 16px;
+  }
+  .activity-section .activity-content .heading .title p,
+  .activity-section .activity-content .heading .points p {
+    font-size: 18px;
+  }
 }

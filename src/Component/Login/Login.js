@@ -7,26 +7,35 @@ import Vector from "../../images/Vector.png";
 import Shape from "../../images/Shape.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import PropTypes from 'prop-types';
-import OtpInput from 'react-otp-input';
+import PropTypes from "prop-types";
+import OtpInput from "react-otp-input";
 
 const loginUser = async (credentials) => {
-  return fetch('https://7xgg2kbpik.execute-api.us-east-2.amazonaws.com/dev/auth/signup/mobile', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json());
-}
+  return fetch(
+    "https://7xgg2kbpik.execute-api.us-east-2.amazonaws.com/dev/auth/signup/mobile",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
+};
 
-const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, otpFormReset }) => {
+const Login = ({
+  setToken,
+  loginSubmit,
+  otpSubmit,
+  isSubmitting,
+  viewOtpForm,
+  otpFormReset,
+}) => {
   const initialValues = { mobile: "", countrycode: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -37,7 +46,11 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
 
   const handleChange = (value, country, event) => {
     if (value != country.dialCode) {
-      setFormValues({ ...formValues, ['mobile']: value, ['countrycode']: country.dialCode });
+      setFormValues({
+        ...formValues,
+        ["mobile"]: value,
+        ["countrycode"]: country.dialCode,
+      });
     }
   };
 
@@ -55,10 +68,10 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
   // Edit mobile number on otp screen to fire new otp
   const changeMobile = () => {
     setCounter(10);
-    setFormValues({ ...formValues, ['mobile']: "", ['countrycode']: "" });
+    setFormValues({ ...formValues, ["mobile"]: "", ["countrycode"]: "" });
     setFormErrors({});
     setIsSubmit(false);
-    setOtp('');
+    setOtp("");
     otpFormReset();
   };
 
@@ -67,7 +80,7 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
     e.preventDefault();
     setFormErrors(validate(formValues));
     if (formValues.mobile !== "" && formValues.mobile !== null) {
-      console.log('submit', formValues.mobile);
+      console.log("submit", formValues.mobile);
       setIsSubmit(true);
       loginSubmit("+" + formValues.mobile);
       // const response = await loginUser(formValues);
@@ -115,18 +128,19 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                   </div>
                   <p>Claim Your Reward</p>
                 </div>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit}>
                   <div className="mobile">
                     <div className="phonenumber">
                       <PhoneInput
-                        className="inputMobile" id="inputMobile"
+                        className="inputMobile"
+                        id="inputMobile"
                         placeholder="Enter phone number"
                         countryCodeEditable={false}
                         country={"in"}
                         value={formValues.mobile}
                         onChange={handleChange}
                         inputExtraProps={{
-                          name: 'mobile',
+                          name: "mobile",
                         }}
                       />
                     </div>
@@ -135,7 +149,14 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                       {isSubmitting ? (
                         <div className="spinner-border text-light"></div>
                       ) : (
-                        <button type="submit" style={{ outline: 'none', border: 'none', background: 'none' }}>
+                        <button
+                          type="submit"
+                          style={{
+                            outline: "none",
+                            border: "none",
+                            background: "none",
+                          }}
+                        >
                           <div className="next">
                             <div className="images">
                               <img src={Shape} alt="flag" />
@@ -151,7 +172,8 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                     </div>
                   </div>
                 </form>
-              </div>) : (
+              </div>
+            ) : (
               <div>
                 <div className="verification">
                   <div className="vector">
@@ -161,12 +183,14 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
                 </div>
                 <form onSubmit={verifyOTP}>
                   <div className="verification_code">
-                    <OtpInput className="code"
+                    <OtpInput
+                      className="code"
                       value={otp}
                       onChange={setOtp}
                       numInputs={6}
                       autoFocus
-                      disabled={false} secure
+                      disabled={false}
+                      secure
                     />
                   </div>
 
@@ -176,16 +200,26 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
 
                   <div className="wrong_code">
                     <p>
-                      Wrong number ?<span className="editMobile" onClick={changeMobile}>Edit</span>
+                      Wrong number ?
+                      <span className="editMobile" onClick={changeMobile}>
+                        Edit
+                      </span>
                     </p>
                   </div>
                   <div className="next_btn">
-                    {(counter !== 0 && otp.length === 6) && (
+                    {counter !== 0 && otp.length === 6 && (
                       <button type="submit" className="btn btn-primary">
                         Next
-                      </button>)}
-                    {(counter === 0) && (
-                      <button onClick={resendOtp} className="btn btn-danger" style={{ outline: 'none', border: 'none' }}>Resend</button>
+                      </button>
+                    )}
+                    {counter === 0 && (
+                      <button
+                        onClick={resendOtp}
+                        className="btn btn-danger"
+                        style={{ outline: "none", border: "none" }}
+                      >
+                        Resend
+                      </button>
                     )}
                   </div>
                 </form>
@@ -193,13 +227,13 @@ const Login = ({ setToken, loginSubmit, otpSubmit, isSubmitting, viewOtpForm, ot
             )}
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 };
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+  setToken: PropTypes.func.isRequired,
+};
 
 export default Login;

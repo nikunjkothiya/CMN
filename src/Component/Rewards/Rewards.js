@@ -52,14 +52,14 @@ const Rewards = () => {
               <p>Reward Bouns</p>
             </div>
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-6 col-lg-4">
                 <div className="reward-box">
                   <p className="head">Profile Complete</p>
                   <p className="point">+9 Points</p>
                   <button className="btn btn-primary">claim</button>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-6 col-lg-4">
                 <div
                   className="reward-box"
                   style={{ backgroundColor: "#7381FF" }}
@@ -69,7 +69,7 @@ const Rewards = () => {
                   <button className="btn btn-primary">claim</button>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-6 col-lg-4">
                 <div
                   className="reward-box"
                   style={{ backgroundColor: "#F5C361" }}

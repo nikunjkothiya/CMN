@@ -71,3 +71,12 @@
 .faqs .accordian .accordian-faqs .faqs-content .inactive {
   display: none;
 }
+
+@media (max-width: 600px) {
+  .faqs {
+    padding: 50px 0;
+  }
+  .faqs .accordian .accordian-faqs {
+    padding: 15px;
+  }
+}
